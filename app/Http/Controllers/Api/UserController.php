@@ -18,7 +18,6 @@ class UserController extends Controller
         //3个用户为一页
         $users = User::paginate(3);
         return UserResource::collection($users);
-        return $users;
     }
     //返回单一用户信息
     public function show(User $user){
