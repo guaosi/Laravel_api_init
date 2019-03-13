@@ -18,6 +18,7 @@ class UserController extends Controller
         //3个用户为一页
         $users = User::paginate(3);
         return UserResource::collection($users);
+        return $users;
     }
     //返回单一用户信息
     public function show(User $user){
@@ -39,7 +40,7 @@ class UserController extends Controller
     }
     //用户登录
     public function login(Request $request){
-        $token=Auth::claims(['type'=>'api'])->attempt(['name'=>$request->name,'password'=>$request->password]);
+        $token=Auth::claims(['guard'=>'api'])->attempt(['name'=>$request->name,'password'=>$request->password]);
         if($token) {
             //如果登陆，先检查原先是否有存token，有的话先失效，然后再存入最新的token
             $user = Auth::user();

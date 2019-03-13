@@ -24,6 +24,7 @@ class RefreshTokenMiddleware extends BaseMiddleware
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      *
      * @return mixed
+     * @throws TokenInvalidException
      */
     public function handle($request, Closure $next)
     {
@@ -39,7 +40,6 @@ class RefreshTokenMiddleware extends BaseMiddleware
 
         //即使过期了，也能获取到token里的 载荷 信息。
         $payload = Auth::manager()->getJWTProvider()->decode($token->get());
-
         //如果不包含guard字段或者guard所对应的值与当前的guard守护值不相同
         //证明是不属于当前guard守护的token
         if(empty($payload['guard'])||$payload['guard']!=$present_guard){
