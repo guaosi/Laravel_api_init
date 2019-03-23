@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\UserRequest;
 use App\Http\Resources\Api\UserResource;
 use App\Jobs\Api\SaveLastTokenJob;
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,8 @@ class UserController extends Controller
     }
     //用户注册
     public function store(UserRequest $request){
-        $user = User::create($request->all());
-        if($user){
-            return $this->setStatusCode(201)->success('用户注册成功');
-        }
-        return $this->failed('用户注册失败');
-
+        User::create($request->all());
+        return $this->setStatusCode(201)->success('用户注册成功');
     }
     //用户登录
     public function login(Request $request){
@@ -60,14 +57,5 @@ class UserController extends Controller
     public function logout(){
         Auth::logout();
         return $this->success('退出成功...');
-    }
-    public function test(Request $request){
-        $token = Auth::guard('api')->getToken();
-        $token = Auth::guard('admin')->setToken($token)->refresh();
-        dd(Auth::guard('admin')->setToken($token)->check());
-
-        return $token;
-        $token = Auth::guard('api')->getToken();
-        Auth::guard('api')->setToken($token)->invalidate();
     }
 }

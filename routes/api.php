@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('Api')->prefix('v1')->middleware('cors')->group(function () {
-    Route::get('/test', 'UserController@test')->name('users.test');
     Route::middleware('api.guard')->group(function () {
         //用户注册
         Route::post('/users', 'UserController@store')->name('users.store');

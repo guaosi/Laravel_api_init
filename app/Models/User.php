@@ -51,4 +51,7 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
+    public function books(){
+        return $this->hasMany(Book::class,'user_id','id')->limit(2);
+    }
 }

@@ -37,12 +37,8 @@ class AdminController extends Controller
     //用户注册
     public function store(UserRequest $request)
     {
-        $admin = Admin::create($request->all());
-        if ($admin) {
-            return $this->setStatusCode(201)->success('用户注册成功');
-        }
-        return $this->failed('用户注册失败');
-
+        Admin::create($request->all());
+        return $this->setStatusCode(201)->success('用户注册成功');
     }
 
     //用户登录

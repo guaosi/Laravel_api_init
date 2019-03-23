@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -56,6 +57,7 @@ class ExceptionReport
         TokenInvalidException::class=>['token不正确',400],
         NotFoundHttpException::class=>['没有找到该页面',404],
         MethodNotAllowedHttpException::class=>['访问方式不正确',405],
+        QueryException::class=>['参数错误',401],
     ];
 
     public function register($className,callable $callback){
